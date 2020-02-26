@@ -1,0 +1,200 @@
+
+function kek() {
+
+    var _Store = snapshotResult.customRequire("./src/js/redux/Store.js"),
+        _Sagas = snapshotResult.customRequire("./src/js/redux/Sagas.js"),
+        _StringLocalizer = _StringLocalizer = snapshotResult.customRequire("./src/js/utils/StringLocalizer.js"),
+        _LockConstants = snapshotResult.customRequire("./src/js/constants/LockConstants.js"),
+        _AppSelectors = snapshotResult.customRequire("./src/js/redux/domain/App/AppSelectors.js"),
+        _AppSagas = snapshotResult.customRequire("./src/js/redux/domain/App/AppSagas.js"),
+        _NotificationSagas = snapshotResult.customRequire("./src/js/redux/domain/Notification/NotificationSagas.js"),
+        _NotificationTypes = snapshotResult.customRequire("./src/js/redux/domain/Notification/NotificationTypes.js"),
+        _RegistrationSelectors = snapshotResult.customRequire("./src/js/redux/domain/Registration/RegistrationSelectors.js"),
+        _RepoSelectors = snapshotResult.customRequire("./src/js/redux/domain/Repo/RepoSelectors.js"),
+        _RepoSettingsSagas = snapshotResult.customRequire("./src/js/redux/domain/RepoSettings/RepoSettingsSagas.js"),
+        _RepoSettingsSelectors = snapshotResult.customRequire("./src/js/redux/domain/RepoSettings/RepoSettingsSelectors.js"),
+        _PluginConstants = snapshotResult.customRequire("./src/js/redux/domain/Plugin/PluginConstants.js"),
+        _PluginMessages = snapshotResult.customRequire("./src/js/redux/domain/Plugin/PluginMessages.js"),
+        _PluginSelectors = snapshotResult.customRequire("./src/js/redux/domain/Plugin/PluginSelectors.js"),
+        _TabsConstants = snapshotResult.customRequire("./src/js/redux/domain/Tabs/TabsConstants.js"),
+        _TabsHelpers = snapshotResult.customRequire("./src/js/redux/domain/Tabs/TabsHelpers.js"),
+        _TabsSagas = snapshotResult.customRequire("./src/js/redux/domain/Tabs/TabsSagas.js"),
+        _AppMessages = snapshotResult.customRequire("./src/js/redux/domain/App/AppMessages.js"),
+        _RegistrationMessages = snapshotResult.customRequire("./src/js/redux/domain/Registration/RegistrationMessages.js"),
+        _RegistrationSelectors = snapshotResult.customRequire("./src/js/redux/domain/Registration/RegistrationSelectors.js"),
+        RegistrationConstants = snapshotResult.customRequire("./src/js/constants/RegistrationConstants.js"),
+        _TabsSelectors = snapshotResult.customRequire("./src/js/redux/domain/Tabs/TabsSelectors.js");
+
+    const _devSetFeatures = (newFeatures, newAccessState) => {
+            (0,
+                _Store.runSaga)(null, _AppSagas.setSetting, "licensedFeatures", newFeatures),
+            (0,
+                _Store.dispatch)((0,
+                _AppMessages.LicensedFeaturesUpdated)(newFeatures)),
+            newAccessState && (0,
+                _Store.dispatch)((0,
+                _AppMessages.AccessStateUpdated)(newAccessState))
+        },
+        syncFunctions = {
+            logout(keepEmailAndName) {
+                if ((0,
+                        _AppSelectors.getIsStandaloneClient)((0,
+                        _Store.getState)()))
+                    throw new Error(ErrorMessagesConstants.NOT_AVAILABLE_IN_STANDALONE);
+                setRegistrationDateToNowIfNeeded();
+                const settingsToClear = [settingPaths.loginType, settingPaths.registrationEULAStatus, settingPaths.registrationEULAVersion, settingPaths.userId];
+                keepEmailAndName || settingsToClear.push(settingPaths.registrationEmail, settingPaths.registrationName),
+                    _lodash.default.forEach(settingsToClear, setting => {
+                        (0,
+                            _Store.runSaga)(null, _AppSagas.setSetting, setting, _lodash.default.get(_AppSettings.default, setting))
+                    }),
+                    (0,
+                        _Store.runSaga)(null, _AppSagas.setSetting, settingPaths.registrationStatus, RegistrationConstants.status.UNREGISTERED),
+                    RegistrationHelpers.getSecStore().deletePassword(AppSettingsConstants.secureStorageKey, RegistrationConstants.accessTokenKey),
+                    (0,
+                        _Store.dispatch)((0,
+                        _RegistrationMessages.UserLoggedOut)()),
+                    (0,
+                        _Store.runSaga)(null, _NotificationSagas.showNotification, _NotificationTypes.NOTIFICATION_TYPE.SUCCESS, (0,
+                        _StringLocalizer.default)("Registration-GoingUnregistered", (0,
+                        _RegistrationSelectors.getDaysLeftToVerify)((0,
+                        _Store.getState)())))
+            },
+            setConfirmPassword(confirmPassword) {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.ConfirmPasswordChanged)(confirmPassword))
+            },
+            setIsEULAChecked(isEulaChecked) {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.IsEulaCheckedChanged)(isEulaChecked))
+            },
+            setEmail(email) {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.EmailChanged)(email))
+            },
+            setName(name) {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.NameChanged)(name || ""))
+            },
+            setPassword(password) {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.PasswordChanged)(password)),
+                debouncedPasswordStrengthAsyncAction(password)
+            },
+            showEnterpriseHostnameForm() {
+                if (!(0,
+                        _AppSelectors.getIsEnterprise)((0,
+                        _Store.getState)()))
+                    throw new Error(ErrorMessagesConstants.ONLY_AVAILABLE_IN_ENTERPRISE);
+                const host = (0,
+                        _AppSelectors.getServerHostname)((0,
+                        _Store.getState)()),
+                    useSecureProtocols = (0,
+                        _AppSelectors.getUseSecureProtocols)((0,
+                        _Store.getState)()),
+                    hostname = "".concat(useSecureProtocols ? "https" : "http", "://").concat(host);
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.EnterpriseHostnameFormShown)(hostname))
+            },
+            showRegistrationForm(accountIntent) {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.RegistrationFormShown)(accountIntent)),
+                syncFunctions.updateRegistrationStatus()
+            },
+            showVerifyEmailForm() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.VerifyEmailFormShown)())
+            },
+            hideEnterpriseHostnameForm() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.EnterpriseHostnameFormHidden)())
+            },
+            hideEULAForm() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.EulaFormHidden)())
+            },
+            hideRegistrationForm() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.RegistrationFormHidden)())
+            },
+            hideVerifyEmailForm() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.VerifyEmailFormHidden)())
+            },
+            updateRegistrationStatus() {
+                const now = (0,
+                        get__moment().default)(),
+                    registrationStatus = (0,
+                        _AppSelectors.getRegistrationStatus)((0,
+                        _Store.getState)()),
+                    registrationDateJSON = (0,
+                        _AppSelectors.getRegistrationDate)((0,
+                        _Store.getState)());
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.RegistrationDateUpdated)(registrationStatus, registrationDateJSON, now))
+            },
+            devBecomeFree() {
+                _devSetFeatures([])
+            },
+            devBecomeIndividual() {
+                _devSetFeatures([RegistrationConstants.features.individual])
+            },
+            devBecomeVersion6LegacyTrial() {
+                _devSetFeatures([RegistrationConstants.features.individual, RegistrationConstants.features.version6LegacyTrial], {
+                    version6LegacyTrial: {
+                        start: (0,
+                            get__moment().default)().subtract(5, "hours").toISOString(),
+                        end: (0,
+                            get__moment().default)().add(5, "days").toISOString()
+                    }
+                })
+            },
+            devBecomePro() {
+                _devSetFeatures([RegistrationConstants.features.pro]),
+                    (0,
+                        _Store.dispatch)((0,
+                        _AppMessages.AvailableTrialDaysUpdated)(null))
+            },
+            devBecomeProTrial() {
+                _devSetFeatures([RegistrationConstants.features.pro, RegistrationConstants.features.trial], {
+                        trial: {
+                            start: (0,
+                                get__moment().default)().subtract(5, "hours").toISOString(),
+                            end: (0,
+                                get__moment().default)().add(5, "days").toISOString()
+                        }
+                    }),
+                    (0,
+                        _Store.dispatch)((0,
+                        _AppMessages.AvailableTrialDaysUpdated)(null))
+            },
+            devBecomeStudent() {
+                _devSetFeatures([RegistrationConstants.features.pro, RegistrationConstants.features.student])
+            },
+            devToggleProTrialAvailable() {
+                const availableTrialDays = (0,
+                    _AppSelectors.getAvailableTrialDays)((0,
+                    _Store.getState)());
+                (0,
+                    _Store.dispatch)((0,
+                    _AppMessages.AvailableTrialDaysUpdated)(_fp.default.isNumber(availableTrialDays) ? null : 7))
+            }
+        };
+
+    syncFunctions.devBecomePro();
+}
+
+setTimeout(kek, 5000);
