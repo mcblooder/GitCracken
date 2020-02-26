@@ -1,5 +1,5 @@
 # GitCracken
-Because fuck you, that's why
+Because f*ck you, that's why
 
 # Prequesties
 nodejs
