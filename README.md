@@ -8,9 +8,14 @@ nodejs
 npm
 
 # Usage
-## Linux
-Clone repository on your pc, cd into it.
-Close GitKraken.
-`npm i && node main.js`
+Linux & macOS usage.
+Clone/Download repository on your pc and extract.
 
-Enjoy
+## macOS
+- run `Installer.app` by double clicking it
+
+## Linux / macOS
+- open Terminal
+- `cd` into it repo directory
+- close GitKraken
+- execute `npm i && node main.js`
