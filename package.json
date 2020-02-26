@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "asar": "^2.1.0",
-    "ps-node": "^0.1.6"
+    "asar": "^2.1.0"
   }
 }

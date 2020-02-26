@@ -1,12 +1,23 @@
 const fs = require('fs');
-const ps = require('ps-node');
 const path = require("path");
 const asar = require('asar');
 
 async function main() {
   const asarPath = "/Applications/GitKraken.app/Contents/Resources/app.asar";
+  const backupAsarPath = asarPath + ".back";
   const tmpDir = "/tmp/GitCracken/";
   const patchPath = "v1.patch";
+
+  if (fs.existsSync(backupAsarPath)) {
+    console.log("Removing existins .asar");
+    fs.unlinkSync(asarPath);
+    console.log("Rolling back");
+    fs.renameSync(backupAsarPath, asarPath);
+    process.exit();
+  } else {
+    console.log("Backup .asar");
+    fs.copyFileSync(asarPath, backupAsarPath);
+  }
 
   console.log("Clearing temp dir if exist");
   if (fs.existsSync(tmpDir)) {
