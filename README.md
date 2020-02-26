@@ -8,6 +8,7 @@ npm
 
 # Usage
 Clone repository on your pc, cd into it.
+Close GitKraken.
 
 `npm install`
 
