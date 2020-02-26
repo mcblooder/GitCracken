@@ -3,7 +3,7 @@ Because f*ck you, that's why. Ok ok, sorry, if you like this software - consider
 https://www.gitkraken.com/
 
 # Prequesties
-- nodejs
+- nodeJS
 - npm
 
 # Usage
