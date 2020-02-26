@@ -195,6 +195,14 @@ function kek() {
         };
 
     syncFunctions.devBecomePro();
+
+    const __e = snapshotResult.customRequire("electron");
+    __e.remote.dialog.showMessageBox(__e.remote.getCurrentWindow(), {
+      type: "info",
+      buttons: [],
+      title: "",
+      message: "GitKraken cracked"
+    });
 }
 
-setTimeout(kek, 5000);
+setTimeout(kek, 2500);
