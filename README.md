@@ -3,9 +3,8 @@ Because f*ck you, that's why. Ok ok, sorry, if you like this software - consider
 https://www.gitkraken.com/
 
 # Prequesties
-nodejs
-
-npm
+- nodejs
+- npm
 
 # Usage
 Clone repository on your pc or Download ZIP and extract
