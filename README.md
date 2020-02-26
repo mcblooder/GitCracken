@@ -8,8 +8,7 @@ nodejs
 npm
 
 # Usage
-Linux & macOS usage.
-Clone/Download repository on your pc and extract.
+Clone repository on your pc or Download ZIP and extract
 
 ## macOS
 - open `Installer.scpt` by double clicking it and hit "Play" button
