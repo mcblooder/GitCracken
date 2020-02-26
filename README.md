@@ -12,8 +12,6 @@ Clone repository on your pc, cd into it.
 
 Close GitKraken.
 
-`npm install`
-
-`node main.js`
+`npm i && node main.js`
 
 Enjoy
