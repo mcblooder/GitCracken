@@ -45,7 +45,7 @@ async function main() {
 
   console.log("Patch " + patchPath + " successfully applied");
 
-  console.log("Removing existins .asar");
+  console.log("Removing existing .asar");
   fs.unlinkSync(asarPath);
 
   console.log("Packing .asar back");
