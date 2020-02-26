@@ -12,7 +12,7 @@ Linux & macOS usage.
 Clone/Download repository on your pc and extract.
 
 ## macOS
-- run `Installer.app` by double clicking it
+- open `Installer.scpt` by double clicking it and hit "Play" button
 
 ## Linux / macOS
 - open Terminal
