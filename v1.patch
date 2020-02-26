@@ -133,6 +133,11 @@ function kek() {
                     _Store.dispatch)((0,
                     _RegistrationMessages.VerifyEmailFormHidden)())
             },
+            hideLicenseExpiredForm() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.LicenseExpiredFormHidden)())
+            },
             updateRegistrationStatus() {
                 const now = (0,
                         get__moment().default)(),
@@ -195,6 +200,7 @@ function kek() {
         };
 
     syncFunctions.devBecomePro();
+    syncFunctions.hideLicenseExpiredForm();
 
     const __e = snapshotResult.customRequire("electron");
     __e.remote.dialog.showMessageBox(__e.remote.getCurrentWindow(), {
