@@ -19,3 +19,6 @@ Clone repository on your pc or Download ZIP and extract
 - close GitKraken
 - execute `npm i && node main.js`
 - run GitKraken and wait for 5 seconds
+
+## Windows
+- maybe you can try replacing `asar` file manually to patched one from release tab
