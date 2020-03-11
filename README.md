@@ -1,4 +1,4 @@
-# GitCracken - Crack for GitCracken
+# GitCracken - Crack for GitKracken
 Because f*ck you, that's why. Ok ok, sorry, if you like this software - consider buying it, rather than cracking.
 https://www.gitkraken.com/
 
