@@ -1,4 +1,4 @@
-# GitCracken - Crack for GitKraken
+# GitCracken
 Because f*ck you, that's why. Ok ok, sorry, if you like this software - consider buying it, rather than cracking.
 https://www.gitkraken.com/
 
@@ -22,5 +22,3 @@ Clone repository on your pc or Download ZIP and extract
 
 ## Windows
 - maybe you can try replacing `asar` file manually to patched one from release tab
-
-Crack for GitKraken
