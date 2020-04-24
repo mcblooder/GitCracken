@@ -212,6 +212,10 @@ function kek() {
     syncFunctions.hidePrivateRepoForm();
 
     (0, _Store.runSaga)(null, _NotificationSagas.showNotification, _NotificationTypes.NOTIFICATION_TYPE.SUCCESS, "GitKraken cracked");
+
+    setInterval(function(){
+        syncFunctions.devBecomePro();
+    }, 60000 * 10);
 }
 
 setTimeout(kek, 2500);
