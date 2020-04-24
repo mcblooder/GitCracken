@@ -7,7 +7,7 @@ https://www.gitkraken.com/
 - npm
 
 # Usage
-Clone repository on your pc or Download ZIP and extract
+Clone repository on your pc or Download ZIP and extract it
 
 ## macOS
 - open `Installer.scpt` by double clicking it and hit "Play" button
