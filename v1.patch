@@ -138,6 +138,11 @@ function kek() {
                     _Store.dispatch)((0,
                     _RegistrationMessages.LicenseExpiredFormHidden)())
             },
+            hidePrivateRepoForm() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.PrivateRepoDetectedFormHidden)())
+            },
             updateRegistrationStatus() {
                 const now = (0,
                         get__moment().default)(),
@@ -201,14 +206,9 @@ function kek() {
 
     syncFunctions.devBecomePro();
     syncFunctions.hideLicenseExpiredForm();
+    syncFunctions.hidePrivateRepoForm();
 
-    const __e = snapshotResult.customRequire("electron");
-    __e.remote.dialog.showMessageBox(__e.remote.getCurrentWindow(), {
-      type: "info",
-      buttons: [],
-      title: "",
-      message: "GitKraken cracked"
-    });
+    (0, _Store.runSaga)(null, _NotificationSagas.showNotification, _NotificationTypes.NOTIFICATION_TYPE.SUCCESS, "GitKraken cracked");
 }
 
 setTimeout(kek, 2500);
