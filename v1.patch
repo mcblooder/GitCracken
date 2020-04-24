@@ -1,3 +1,6 @@
+_RegistrationMessages = snapshotResult.customRequire("./src/js/redux/domain/Registration/RegistrationMessages.js");
+_RegistrationMessages.LicenseExpiredFormShown = _RegistrationMessages.LicenseExpiredFormHidden;
+_RegistrationMessages.PrivateRepoDetectedFormShown = _RegistrationMessages.PrivateRepoDetectedFormHidden;
 
 function kek() {
 
