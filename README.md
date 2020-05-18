@@ -1,5 +1,5 @@
 # GitCracken
-Because f*ck you, that's why. Ok ok, sorry, if you like this software - consider buying it, rather than cracking.
+if you like this software - consider buying it, rather than cracking.
 https://www.gitkraken.com/
 
 # Prequesties
