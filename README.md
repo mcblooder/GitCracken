@@ -10,7 +10,7 @@ https://www.gitkraken.com/
 Clone repository on your pc or Download ZIP and extract it
 
 ## macOS
-- open `Installer.scpt` by double clicking it and hit "Play" button
+- open `Install.scpt` by double clicking it and hit "Play" button
 - run GitKraken and wait for 5 seconds
 
 ## Linux / macOS
