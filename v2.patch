@@ -1,0 +1,49 @@
+function kek() {
+
+    var _Store = snapshotResult.customRequire("./src/js/redux/Store.js"),
+        _AppMessages = snapshotResult.customRequire("./src/js/redux/domain/App/AppMessages.js"),
+        _RegistrationSagas = snapshotResult.customRequire("./src/js/redux/domain/Registration/RegistrationSagas.js"),
+        _NotificationSagas = snapshotResult.customRequire("./src/js/redux/domain/Notification/NotificationSagas.js"),
+        _NotificationTypes = snapshotResult.customRequire("./src/js/redux/domain/Notification/NotificationTypes.js"),
+        _RegistrationMessages = snapshotResult.customRequire("./src/js/redux/domain/Registration/RegistrationMessages.js");
+
+    const _devSetFeatures = (newFeatures, newAccessState) => {
+            (0,
+                _Store.runSaga)(null, _AppSagas.setSetting, "licensedFeatures", newFeatures),
+            (0,
+                _Store.dispatch)((0,
+                _AppMessages.LicensedFeaturesUpdated)(newFeatures)),
+            newAccessState && (0,
+                _Store.dispatch)((0,
+                _AppMessages.AccessStateUpdated)(newAccessState))
+        },
+        syncFunctions = {
+            hideLicenseExpiredForm() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.LicenseExpiredFormHidden)())
+            },
+            hidePrivateRepoForm() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationMessages.PrivateRepoDetectedFormHidden)())
+            },
+            devBecomePro() {
+                (0,
+                    _Store.dispatch)((0,
+                    _RegistrationSagas.devBecomePro)())
+            }
+        };
+
+    syncFunctions.devBecomePro();
+    syncFunctions.hideLicenseExpiredForm();
+    syncFunctions.hidePrivateRepoForm();
+
+    (0, _Store.runSaga)(null, _NotificationSagas.showNotification, _NotificationTypes.NOTIFICATION_TYPE.SUCCESS, "GitKraken cracked");
+
+    setInterval(function(){
+        syncFunctions.devBecomePro();
+    }, 60000 * 10);
+}
+
+setTimeout(kek, 5000);

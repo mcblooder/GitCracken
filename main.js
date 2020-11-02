@@ -6,7 +6,7 @@ async function main() {
   const asarPath = "/Applications/GitKraken.app/Contents/Resources/app.asar";
   const backupAsarPath = asarPath + ".back";
   const tmpDir = "/tmp/GitCracken/";
-  const patchPath = "v1.patch";
+  const patchPath = "v2.patch";
 
   if (fs.existsSync(backupAsarPath)) {
     console.log("Removing existins .asar");
@@ -28,7 +28,7 @@ async function main() {
   asar.extractAll(asarPath, tmpDir);
   console.log("Unpacked");
 
-  const indexPath = tmpDir + "static/index.js";
+  const indexPath = tmpDir + "src/sharedModules/static/loadSnapshot.js";
   const flagPath = tmpDir + "GitCracken" + patchPath + ".flag";
 
   console.log("Checking patch");
