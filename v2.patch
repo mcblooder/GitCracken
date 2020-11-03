@@ -39,6 +39,8 @@ function kek() {
     syncFunctions.hideLicenseExpiredForm();
     syncFunctions.hidePrivateRepoForm();
 
+    _RegistrationMessages.LicenseExpiredFormShown = _RegistrationMessages.LicenseExpiredFormHidden;
+    
     (0, _Store.runSaga)(null, _NotificationSagas.showNotification, _NotificationTypes.NOTIFICATION_TYPE.SUCCESS, "GitKraken cracked");
 
     setInterval(function(){
