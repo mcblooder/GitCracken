@@ -1,4 +1,6 @@
-function kek() {
+var isNotificationShowed = false;
+
+function crack() {
 
     var _Store = snapshotResult.customRequire("./src/js/redux/Store.js"),
         _AppMessages = snapshotResult.customRequire("./src/js/redux/domain/App/AppMessages.js"),
@@ -41,11 +43,33 @@ function kek() {
 
     _RegistrationMessages.LicenseExpiredFormShown = _RegistrationMessages.LicenseExpiredFormHidden;
     
-    (0, _Store.runSaga)(null, _NotificationSagas.showNotification, _NotificationTypes.NOTIFICATION_TYPE.SUCCESS, "GitKraken cracked");
+    if (isNotificationShowed == false) {
+        isNotificationShowed = true;
+        (0, _Store.runSaga)(null, _NotificationSagas.showNotification, _NotificationTypes.NOTIFICATION_TYPE.SUCCESS, "GitKraken cracked");
+    }
 
     setInterval(function(){
         syncFunctions.devBecomePro();
     }, 60000 * 10);
+}
+
+function kek() {
+    var _AppSelectors = snapshotResult.customRequire("./src/js/redux/domain/App/AppSelectors.js");
+    var _Utils = snapshotResult.customRequire("@axosoft/gitkraken-shared/lib/redux/Utils.js");
+    var _effects = snapshotResult.customRequire("redux-saga/dist/redux-saga-effects-npm-proxy.cjs.js");
+    var _AppMessages = snapshotResult.customRequire("./src/js/redux/domain/App/AppMessages.js");
+
+    var _interopRequireWildcard = snapshotResult.customRequire("@babel/runtime-corejs2/helpers/interopRequireWildcard.js")
+    var Perf = _interopRequireWildcard(snapshotResult.customRequire("./src/js/utils/Performance.js"));
+    var temp = Perf.time;
+
+    Perf.time = function(eventName) {
+        if (eventName.includes("refreshRepo")) {
+            crack()
+        }
+    }
+
+    setTimeout(crack, 10000);
 }
 
 setTimeout(kek, 5000);
