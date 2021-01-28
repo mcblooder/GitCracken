@@ -1,6 +1,12 @@
 # GitCracken
+
+`Crack temporary unavailable, checkout https://github.com/5cr1pt/GitCracken instead`
+
 if you like this software - consider buying it, rather than cracking.
 https://www.gitkraken.com/
+
+<details>
+<summary>Description</summary>
 
 # Prequesties
 - nodeJS
@@ -22,3 +28,4 @@ Clone repository on your pc or Download ZIP and extract it
 
 ## Windows
 - maybe you can try replacing `asar` file manually to patched one from release tab
+</details>
