@@ -1,6 +1,6 @@
 # GitCracken
 
-`Crack temporary unavailable, checkout https://github.com/5cr1pt/GitCracken instead`
+`Crack temporary unavailable, checkout [5cr1pt/GitCracken](https://github.com/5cr1pt/GitCracken) instead`
 
 if you like this software - consider buying it, rather than cracking.
 https://www.gitkraken.com/
